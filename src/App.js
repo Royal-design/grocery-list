@@ -54,9 +54,7 @@ const App = () => {
         />
         <SearchItem setsearch={setsearch} search={search} />
         <Content
-          item={item.filter((item) =>
-            item.item.toLowerCase().includes(search.toLowerCase())
-          )}
+          item={item}
           FaTrashAlt={FaTrashAlt}
           handleCheck={handleCheck}
           handleDelete={handleDelete}
