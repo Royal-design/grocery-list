@@ -11,7 +11,7 @@ export const Content = ({ item, FaTrashAlt, handleCheck, handleDelete }) => {
           handleDelete={handleDelete}
         />
       ) : (
-        <p>The list is empty</p>
+        <p>Your list is empty</p>
       )}
     </main>
   );

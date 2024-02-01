@@ -2,7 +2,7 @@ import { AddItem } from "./AddItem";
 import { Content } from "./Content";
 import { Footer } from "./Footer";
 import { Headers } from "./Headers";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { FaTrashAlt } from "react-icons/fa";
 import "./app.style.scss";
 import { SearchItem } from "./SearchItem";
@@ -10,28 +10,30 @@ import { SearchItem } from "./SearchItem";
 const App = () => {
   const [search, setsearch] = useState("");
   const [item, setitem] = useState(
-    JSON.parse(localStorage.getItem("shoppinglist"))
+    JSON.parse(localStorage.getItem("shoppinglist")) || []
   );
-  const savedItem = (newItem) => {
-    setitem(newItem);
-    localStorage.setItem("shoppinglist", JSON.stringify(newItem));
-  };
+
+  useEffect(() => {
+    console.log("new item enter");
+    localStorage.setItem("shoppinglist", JSON.stringify(item));
+  }, [item]);
+
   const handleCheck = (id) => {
     const newItem = item.map((item) =>
       id === item.id ? { ...item, checked: !item.checked } : item
     );
-    savedItem(newItem);
+    setitem(newItem);
   };
   const handleDelete = (id) => {
     const newItem = item.filter((item) => id !== item.id);
-    savedItem(newItem);
+    setitem(newItem);
   };
   const [newitem, setnewitem] = useState("");
   const addItem = (inputNewItem) => {
     const id = item.length ? item[item.length - 1].id + 1 : 1;
     const myNewItem = { id, checked: false, item: inputNewItem };
     const newItem = [...item, myNewItem];
-    savedItem(newItem);
+    setitem(newItem);
   };
   const handleSubmit = (e) => {
     e.preventDefault();
